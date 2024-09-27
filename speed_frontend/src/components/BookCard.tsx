@@ -1,6 +1,7 @@
 import React from 'react';
 import { Book } from './Book';
 import { useRouter } from 'next/navigation';
+import './BookCard.css';  // Import the CSS file
 
 interface IProp {
   book?: Book;
@@ -22,7 +23,7 @@ const BookCard = ({ book }: IProp) => {
       <img
         src='https://images.unsplash.com/photo-1495446815901-a7297e633e8d'
         alt='Books'
-        height={200}
+        className='book-image'
       />
       <div className='desc'>
         <h2>{book.title}</h2>
