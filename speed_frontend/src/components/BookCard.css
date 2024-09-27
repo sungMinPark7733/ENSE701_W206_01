@@ -1,5 +1,0 @@
-.book-image {
-    width: 150px; /* Adjust the width as per your requirement */
-    height: auto; /* This will maintain the aspect ratio */
-    object-fit: cover; /* This ensures the image is cropped correctly */
-  }
