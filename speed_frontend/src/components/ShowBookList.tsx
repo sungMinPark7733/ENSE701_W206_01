@@ -3,15 +3,15 @@ import Link from 'next/link';
 import { Book } from './Book';
 
 function ShowBookList() {
-  const [books, setBooks] = useState<[Book?]>([]);
+  const [articles, setarticles] = useState<[Book?]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:8082/api/books')
+    fetch('http://localhost:8082/api/articles')
       .then((res) => {
         return res.json();
       })
-      .then((books) => {
-        setBooks(books);
+      .then((articles) => {
+        setarticles(articles);
       })
       .catch((err) => {
         console.log('Error from ShowBookList: ' + err);
@@ -24,11 +24,11 @@ function ShowBookList() {
         <div className='row'>
           <div className='col-md-12'>
             <br />
-            <h2 className='display-4 text-center'>Books List</h2>
+            <h2 className='display-4 text-center'>SPEED</h2>
           </div>
 
           <div className='col-md-11'>
-            <Link href='/create-book' className='btn btn-outline-warning float-right'>
+            <Link href='/create-article' className='btn btn-outline-warning float-right'>
               + Add New Book
             </Link>
             <br />
@@ -38,8 +38,8 @@ function ShowBookList() {
         </div>
 
         <div className='table-responsive'>
-          {books.length === 0 ? (
-            'There is no book record!'
+          {articles.length === 0 ? (
+            'There is no article record!'
           ) : (
             <table className='table table-striped'>
               <thead>
@@ -53,14 +53,14 @@ function ShowBookList() {
                 </tr>
               </thead>
               <tbody>
-                {books.map((book, index) => (
-                  <tr key={index} onClick={() => window.location.href = `/show-book/${book?._id}`}>
-                    <td>{book?.title}</td>
-                    <td>{book?.author}</td>
-                    <td>{book?.isbn}</td>
-                    <td>{book?.description}</td>
-                    <td>{new Date(book?.published_date || '').toLocaleDateString()}</td>
-                    <td>{book?.publisher}</td>
+                {articles.map((article, index) => (
+                  <tr key={index} onClick={() => window.location.href = `/show-article/${article?._id}`}>
+                    <td>{article?.title}</td>
+                    <td>{article?.author}</td>
+                    <td>{article?.isbn}</td>
+                    <td>{article?.description}</td>
+                    <td>{new Date(article?.published_date || '').toLocaleDateString()}</td>
+                    <td>{article?.publisher}</td>
                   </tr>
                 ))}
               </tbody>

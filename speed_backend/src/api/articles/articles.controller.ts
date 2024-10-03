@@ -9,11 +9,11 @@ import {
     Post,
     Put,
   } from '@nestjs/common';
-  import { BookService } from './book.service';
-  import { CreateBookDto } from './create-book.dto';
+  import { BookService } from './articles.service';
+  import { CreateBookDto } from './create-articles.dto';
   import { error } from 'console';
   
-  @Controller('api/books')
+  @Controller('api/articles')
   export class BookController {
     constructor(private readonly bookService: BookService) {}
   
