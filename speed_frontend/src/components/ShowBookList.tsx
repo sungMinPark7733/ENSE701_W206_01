@@ -49,6 +49,7 @@ function ShowBookList() {
                   <th>Description</th>
                   <th>Published Date</th>
                   <th>Publisher</th>
+                  <th>URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,6 +60,7 @@ function ShowBookList() {
                     <td>{book?.description}</td>
                     <td>{new Date(book?.published_date || '').toLocaleDateString()}</td>
                     <td>{book?.publisher}</td>
+                    <td>{book?.url}</td>
                   </tr>
                 ))}
               </tbody>

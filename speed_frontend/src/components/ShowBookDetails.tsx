@@ -68,6 +68,11 @@ function ShowBookDetails() {
             <td>Description</td>
             <td>{book.description}</td>
           </tr>
+          <tr>
+            <th scope='row'>6</th>
+            <td>URL</td>
+            <td>{book.url}</td>
+          </tr>
         </tbody>
       </table>
     </div>
