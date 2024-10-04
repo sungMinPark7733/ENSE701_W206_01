@@ -44,7 +44,7 @@ const CreateBookComponent = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  placeholder="Title of the Article"
+                  placeholder="Title of the Book"
                   name="title"
                   className="form-control"
                   value={book.title}
@@ -77,7 +77,7 @@ const CreateBookComponent = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  placeholder="Describe this Article"
+                  placeholder="Describe this book"
                   name="description"
                   className="form-control"
                   value={book.description}
@@ -99,22 +99,10 @@ const CreateBookComponent = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  placeholder="Publisher of this Article"
+                  placeholder="Publisher of this Book"
                   name="publisher"
                   className="form-control"
                   value={book.publisher}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className="form-group">
-                <input
-                  type="text"
-                  placeholder="URL of this Article"
-                  name="url"
-                  className="form-control"
-                  value={book.url}
                   onChange={onChange}
                 />
               </div>

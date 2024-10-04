@@ -52,8 +52,8 @@ function UpdateBookInfo() {
             </Link>
           </div>
           <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Edit Article</h1>
-            <p className='lead text-center'>Update Article&quot;s Info</p>
+            <h1 className='display-4 text-center'>Edit Book</h1>
+            <p className='lead text-center'>Update Book&quot;s Info</p>
           </div>
         </div>
 
@@ -63,7 +63,7 @@ function UpdateBookInfo() {
               <label htmlFor='title'>Title</label>
               <input
                 type='text'
-                placeholder='Title of the Article'
+                placeholder='Title of the Book'
                 name='title'
                 className='form-control'
                 value={book.title}
@@ -101,7 +101,7 @@ function UpdateBookInfo() {
             <div className='form-group'>
               <label htmlFor='description'>Description</label>
               <textarea
-                placeholder='Description of the Article'
+                placeholder='Description of the Book'
                 name='description'
                 className='form-control'
                 value={book.description}
@@ -127,21 +127,8 @@ function UpdateBookInfo() {
               <label htmlFor='publisher'>Publisher</label>
               <input
                 type='text'
-                placeholder='Publisher of the Article'
+                placeholder='Publisher of the Book'
                 name='publisher'
-                className='form-control'
-                value={book.publisher}
-                onChange={inputOnChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='url'>URL</label>
-              <input
-                type='text'
-                placeholder='URL of the Article'
-                name='url'
                 className='form-control'
                 value={book.publisher}
                 onChange={inputOnChange}
