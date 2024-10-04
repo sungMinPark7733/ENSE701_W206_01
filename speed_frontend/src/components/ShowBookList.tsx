@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import BookCard from './BookCard';
 import { Book } from './Book';
 
 function ShowBookList() {
@@ -19,25 +18,17 @@ function ShowBookList() {
       });
   }, []);
 
-  const bookList =
-    books.length === 0
-      ? 'there is no book record!'
-      : books.map((book, k) => <BookCard book={book} key={k} />);
-
   return (
     <div className='ShowBookList'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-12'>
             <br />
-            <h2 className='display-4 text-center'>Books List</h2>
+            <h2 className='display-4 text-center'>SPEED</h2>
           </div>
 
           <div className='col-md-11'>
-            <Link
-              href='/create-book'
-              className='btn btn-outline-warning float-right'
-            >
+            <Link href='/create-book' className='btn btn-outline-warning float-right'>
               + Add New Book
             </Link>
             <br />
@@ -46,11 +37,37 @@ function ShowBookList() {
           </div>
         </div>
 
-        <div className='list'>{bookList}</div>
+        <div className='table-responsive'>
+          {books.length === 0 ? (
+            'There is no book record!'
+          ) : (
+            <table className='table table-striped'>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Description</th>
+                  <th>Published Date</th>
+                  <th>Publisher</th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.map((book, index) => (
+                  <tr key={index} onClick={() => window.location.href = `/show-book/${book?._id}`}>
+                    <td>{book?.title}</td>
+                    <td>{book?.author}</td>
+                    <td>{book?.description}</td>
+                    <td>{new Date(book?.published_date || '').toLocaleDateString()}</td>
+                    <td>{book?.publisher}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
 export default ShowBookList;
-

@@ -38,8 +38,8 @@ const CreateBookComponent = () => {
             </Link>
           </div>
           <div className="col-md-10 m-auto">
-            <h1 className="display-4 text-center">Add Book</h1>
-            <p className="lead text-center">Create new book</p>
+            <h1 className="display-4 text-center">Add ARTICLES</h1>
+            <p className="lead text-center">Create new article</p>
             <form noValidate onSubmit={onSubmit}>
               <div className="form-group">
                 <input
