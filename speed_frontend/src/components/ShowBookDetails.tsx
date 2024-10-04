@@ -24,15 +24,16 @@ function ShowBookDetails() {
       });
   }, [id]);
 
-  const onDeleteClick = (id: string) => {
-    fetch(`http://localhost:8082/api/books/${id}`, { method: 'DELETE' })
-      .then((res) => {
-        navigate.push('/');
-      })
-      .catch((err) => {
-        console.log('Error form ShowBookDetails_deleteClick: ' + err);
-      });
-  };
+    // Remove the unused 'res' parameter in onDeleteClick function
+    const onDeleteClick = (id: string) => {
+      fetch(`http://localhost:8082/api/books/${id}`, { method: 'DELETE' })
+        .then(() => {
+          navigate.push('/');
+        })
+        .catch((err) => {
+          console.log('Error from ShowBookDetails_deleteClick: ' + err);
+        });
+    };
 
   const BookItem = (
     <div>
