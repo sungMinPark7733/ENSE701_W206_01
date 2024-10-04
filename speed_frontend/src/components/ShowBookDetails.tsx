@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -7,20 +7,31 @@ import Link from 'next/link';
 
 function ShowBookDetails() {
   const [book, setBook] = useState<Book>(DefaultEmptyBook);
+
   const id = useParams<{ id: string }>().id;
   const navigate = useRouter();
 
   useEffect(() => {
     fetch(`http://localhost:8082/api/books/${id}`)
-      .then((res) => res.json())
-      .then((json) => setBook(json))
-      .catch((err) => console.log('Error from ShowBookDetails: ' + err));
+      .then((res) => {
+        return res.json()
+      })
+      .then((json) => {
+        setBook(json);
+      })
+      .catch((err) => {
+        console.log('Error from ShowBookDetails: ' + err);
+      });
   }, [id]);
 
   const onDeleteClick = (id: string) => {
     fetch(`http://localhost:8082/api/books/${id}`, { method: 'DELETE' })
-      .then(() => navigate.push('/'))
-      .catch((err) => console.log('Error from ShowBookDetails_deleteClick: ' + err));
+      .then((res) => {
+        navigate.push('/');
+      })
+      .catch((err) => {
+        console.log('Error form ShowBookDetails_deleteClick: ' + err);
+      });
   };
 
   const BookItem = (
@@ -74,8 +85,8 @@ function ShowBookDetails() {
           </div>
           <br />
           <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Book's Record</h1>
-            <p className='lead text-center'>View Book's Info</p>
+            <h1 className='display-4 text-center'>Book&quot;s Record</h1>
+            <p className='lead text-center'>View Book&quot;s Info</p>
             <hr /> <br />
           </div>
           <div className='col-md-10 m-auto'>{BookItem}</div>
@@ -83,13 +94,18 @@ function ShowBookDetails() {
             <button
               type='button'
               className='btn btn-outline-danger btn-lg btn-block'
-              onClick={() => onDeleteClick(book._id || '')}
+              onClick={() => {
+                onDeleteClick(book._id || "");
+              }}
             >
               Delete Book
             </button>
           </div>
           <div className='col-md-6 m-auto'>
-            <Link href={`/edit-book/${book._id}`} className='btn btn-outline-info btn-lg btn-block'>
+            <Link
+              href={`/edit-book/${book._id}`}
+              className='btn btn-outline-info btn-lg btn-block'
+            >
               Edit Book
             </Link>
           </div>

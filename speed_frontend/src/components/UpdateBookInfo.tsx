@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent, ChangeEventHandler } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Book, DefaultEmptyBook } from './Book';
 import Link from 'next/link';
@@ -10,8 +10,12 @@ function UpdateBookInfo() {
 
   useEffect(() => {
     fetch(`http://localhost:8082/api/books/${id}`)
-      .then((res) => res.json())
-      .then((json) => setBook(json))
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setBook(json);
+      })
       .catch((err) => {
         console.log('Error from UpdateBookInfo: ' + err);
       });
@@ -23,16 +27,13 @@ function UpdateBookInfo() {
 
   const textAreaOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setBook({ ...book, [event.target.name]: event.target.value });
-  };
+  }
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:8082/api/books/${id}`, {
-      method: 'PUT',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(book),
-    })
-      .then(() => {
+
+    fetch(`http://localhost:8082/api/books/${id}`, {method: 'PUT', headers: {"Content-Type": "application/json"}, body: JSON.stringify(book)})
+      .then((res) => {
         router.push(`/show-book/${id}`);
       })
       .catch((err) => {
@@ -47,14 +48,15 @@ function UpdateBookInfo() {
           <div className='col-md-8 m-auto'>
             <br />
             <Link href='/' className='btn btn-outline-warning float-left'>
-              Show Book List
+              Show BooK List
             </Link>
           </div>
           <div className='col-md-8 m-auto'>
             <h1 className='display-4 text-center'>Edit Book</h1>
-            <p className='lead text-center'>Update Book's Info</p>
+            <p className='lead text-center'>Update Book&quot;s Info</p>
           </div>
         </div>
+
         <div className='col-md-8 m-auto'>
           <form noValidate onSubmit={onSubmit}>
             <div className='form-group'>
@@ -69,6 +71,7 @@ function UpdateBookInfo() {
               />
             </div>
             <br />
+
             <div className='form-group'>
               <label htmlFor='isbn'>ISBN</label>
               <input
@@ -81,6 +84,7 @@ function UpdateBookInfo() {
               />
             </div>
             <br />
+
             <div className='form-group'>
               <label htmlFor='author'>Author</label>
               <input
@@ -93,6 +97,7 @@ function UpdateBookInfo() {
               />
             </div>
             <br />
+
             <div className='form-group'>
               <label htmlFor='description'>Description</label>
               <textarea
@@ -104,6 +109,7 @@ function UpdateBookInfo() {
               />
             </div>
             <br />
+
             <div className='form-group'>
               <label htmlFor='published_date'>Published Date</label>
               <input
@@ -116,6 +122,7 @@ function UpdateBookInfo() {
               />
             </div>
             <br />
+
             <div className='form-group'>
               <label htmlFor='publisher'>Publisher</label>
               <input
@@ -128,7 +135,11 @@ function UpdateBookInfo() {
               />
             </div>
             <br />
-            <button type='submit' className='btn btn-outline-info btn-lg btn-block'>
+
+            <button
+              type='submit'
+              className='btn btn-outline-info btn-lg btn-block'
+            >
               Update Book
             </button>
           </form>
@@ -139,3 +150,4 @@ function UpdateBookInfo() {
 }
 
 export default UpdateBookInfo;
+

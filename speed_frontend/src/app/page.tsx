@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import ShowBookList from "@/components/ShowBookList";
+import ShowBookList from "../components/ShowBookList";
 
 export default function Home() {
   return (

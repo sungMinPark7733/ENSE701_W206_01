@@ -5,6 +5,7 @@ import { Book, DefaultEmptyBook } from "./Book";
 
 const CreateBookComponent = () => {
   const navigate = useRouter();
+
   const [book, setBook] = useState<Book>(DefaultEmptyBook);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -12,18 +13,13 @@ const CreateBookComponent = () => {
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
     console.log(book);
-
-    fetch("http://localhost:8082/api/books", {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(book),
-    })
+    fetch("http://localhost:8082/api/books", {method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.stringify(book)})
       .then((res) => {
         console.log(res);
         setBook(DefaultEmptyBook);
-        // Push to home page
+        // Push to /
         navigate.push("/");
       })
       .catch((err) => {
@@ -38,12 +34,12 @@ const CreateBookComponent = () => {
           <div className="col-md-8 m-auto">
             <br />
             <Link href="/" className="btn btn-outline-warning float-left">
-              Show Book List
+              Show BooK List
             </Link>
           </div>
           <div className="col-md-10 m-auto">
-            <h1 className="display-4 text-center">Add Book</h1>
-            <p className="lead text-center">Create new book</p>
+            <h1 className="display-4 text-center">Add ARTICLES</h1>
+            <p className="lead text-center">Create new article</p>
             <form noValidate onSubmit={onSubmit}>
               <div className="form-group">
                 <input
@@ -92,7 +88,7 @@ const CreateBookComponent = () => {
               <div className="form-group">
                 <input
                   type="date"
-                  placeholder="Published Date"
+                  placeholder="published_date"
                   name="published_date"
                   className="form-control"
                   value={book.published_date?.toString()}
@@ -125,3 +121,4 @@ const CreateBookComponent = () => {
 };
 
 export default CreateBookComponent;
+

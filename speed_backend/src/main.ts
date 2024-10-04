@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
+// run backend command "npm run start"
+// run frontend command "npm run dev"
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 

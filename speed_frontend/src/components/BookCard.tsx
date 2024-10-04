@@ -8,15 +8,12 @@ interface IProp {
 
 const BookCard = ({ book }: IProp) => {
   const router = useRouter();
-
-  if (!book) {
+  if (book == undefined) {
     return null;
   }
-
   const onClick = () => {
-    router.push(`/show-book/${book._id}`);
+    router.push(`/show-book/${book._id}`)
   };
-
   return (
     <div className='card-container' onClick={onClick}>
       <img
@@ -25,7 +22,9 @@ const BookCard = ({ book }: IProp) => {
         height={200}
       />
       <div className='desc'>
-        <h2>{book.title}</h2>
+        <h2>
+          {book.title}
+        </h2>
         <h3>{book.author}</h3>
         <p>{book.description}</p>
       </div>
