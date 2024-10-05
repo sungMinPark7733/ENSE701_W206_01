@@ -37,4 +37,8 @@ export class BookService {
     return this.bookModel.findByIdAndUpdate(id, { status: 'approved' }, { new: true }).exec();
   }
 
+  async rejectArticle(id: string): Promise<Book | null>{
+    return this.bookModel.findByIdAndUpdate(id, {status: 'rejected' }, { new: true }).exec();
+  }
+
 }

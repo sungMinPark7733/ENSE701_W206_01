@@ -113,7 +113,7 @@ import {
       }
     }
 
-      // Approve an article
+  // Approve an article
   @Patch(':id/approve')
   async approveArticle(@Param('id') id: string){
     const article = await this.bookService.approveArticle(id);
@@ -122,4 +122,14 @@ import {
     }
     return article;
   }
+
+  // Reject an article 
+  @Patch(':id/reject')
+  async rejectArticle(@Param('id') id: string) {
+    const article = await this.bookService.rejectArticle(id);
+    if(!article) {
+      throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    }
+    return article;
   }
+}
