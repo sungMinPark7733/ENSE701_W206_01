@@ -32,4 +32,9 @@ export class BookService {
     const deletedBook = await this.bookModel.findByIdAndDelete(id).exec();
     return deletedBook;
   }
+    // Approve an article
+  async approveArticle(id: string): Promise<Book | null>{
+    return this.bookModel.findByIdAndUpdate(id, { status: 'approved' }, { new: true }).exec();
+  }
+
 }
