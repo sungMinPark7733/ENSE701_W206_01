@@ -34,11 +34,11 @@ const CreateBookComponent = () => {
           <div className="col-md-8 m-auto">
             <br />
             <Link href="/" className="btn btn-outline-warning float-left">
-              Show BooK List
+              Show Book List
             </Link>
           </div>
           <div className="col-md-10 m-auto">
-            <h1 className="display-4 text-center">Add ARTICLES</h1>
+            <h1 className="display-4 text-center">Add new article</h1>
             <p className="lead text-center">Create new article</p>
             <form noValidate onSubmit={onSubmit}>
               <div className="form-group">
