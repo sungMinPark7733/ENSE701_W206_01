@@ -132,4 +132,9 @@ import {
     }
     return article;
   }
+
+  @Delete(':id')
+  async rejectBook(@Param('id') id: string) {
+  return this.bookService.delete(id);
+  }
 }

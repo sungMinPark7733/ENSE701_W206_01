@@ -1,22 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Book } from './Book';
+import axios from 'axios';
 
 function ShowBookList() {
-  const [books, setBooks] = useState<[Book?]>([]);
+  const [books, setBooks] = useState<(Book | undefined)[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:8082/api/books')
-      .then((res) => {
-        return res.json();
-      })
-      .then((books) => {
-        setBooks(books);
-      })
+      .then((res) => res.json())
+      .then((books) => setBooks(books))
       .catch((err) => {
         console.log('Error from ShowBookList: ' + err);
       });
   }, []);
+
+  const handleApprove = (bookId: string | undefined) => {
+    if (bookId) {
+      console.log(`Book with id ${bookId} approved`);
+    }
+  };
+
+  const handleReject = async (bookId: string | undefined) => {
+    if (!bookId) return;
+
+    try {
+      await axios.delete(`http://localhost:8082/api/books/${bookId}`);
+      setBooks(books.filter((book) => book?._id !== bookId));
+    } catch (error) {
+      console.error('Error rejecting book:', error);
+    }
+  };
 
   return (
     <div className='ShowBookList'>
@@ -50,17 +64,23 @@ function ShowBookList() {
                   <th>Published Date</th>
                   <th>Publisher</th>
                   <th>URL</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {books.map((book, index) => (
-                  <tr key={index} onClick={() => window.location.href = `/show-book/${book?._id}`}>
+                  <tr key={index}>
                     <td>{book?.title}</td>
                     <td>{book?.author}</td>
                     <td>{book?.description}</td>
                     <td>{new Date(book?.published_date || '').toLocaleDateString()}</td>
                     <td>{book?.publisher}</td>
                     <td>{book?.url}</td>
+                    <td>
+                      <button onClick={() => handleApprove(book?._id)}>Approve</button>
+                      <br></br>
+                      <button onClick={() => handleReject(book?._id)}>Reject</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
