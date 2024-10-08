@@ -15,7 +15,7 @@ interface Article {
   rating: number[];
 }
 
-const BrowsePage = () => {
+const AdminPage = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -138,4 +138,4 @@ const BrowsePage = () => {
   );
 };
 
-export default BrowsePage;
+export default AdminPage;

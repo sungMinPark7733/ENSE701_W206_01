@@ -18,3 +18,43 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Navbar styling */
+.navbar {
+  background-color: #333;  /* Dark background color */
+  padding: 1rem;           /* Padding around the navbar */
+  display: flex;           /* Flexbox for alignment */
+  justify-content: center; /* Center the navbar links */
+}
+
+/* Unordered list to style the links */
+.navbar-links {
+  list-style: none;        /* Remove bullets */
+  display: flex;           /* Horizontal layout for links */
+  gap: 1rem;               /* Space between links */
+  margin: 0;               /* Reset default margin */
+  padding: 0;              /* Reset default padding */
+}
+
+/* Styling each list item */
+.navbar-links li {
+  display: inline;         /* Keep links inline */
+  color: white;            /* White text color */
+  text-decoration: none;   /* Remove underline */
+  padding: 0.5rem 1rem;    /* Padding inside each link */
+  border-radius: 5px;      /* Slight rounding of corners */
+  transition: background-color 0.3s ease;  /* Smooth hover effect */
+}
+
+/* Hover effect for links */
+.navbar-links li:hover {
+  background-color: #555;  /* Change background color on hover */
+  color: white;            /* Keep text white on hover */
+  text-decoration: none;   /* Ensure underline doesn't appear */
+}
+
+/* Active link styling (optional) */
+.navbar-links li.active {
+  background-color: #0070f3;  /* Blue background for active link */
+  color: white;               /* White text color for active link */
+}

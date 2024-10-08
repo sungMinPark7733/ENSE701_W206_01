@@ -1,8 +1,6 @@
 
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import SubmitArticlePage from "@/app/pages/submit/page";
-import BrowsePage from "@/app/pages/browse/page";
+import PopulatedNavBar from "@/components/PopulatedNavBar";
 
 export default function RootLayout({
   children,
@@ -12,8 +10,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar></Navbar>
-        <SubmitArticlePage></SubmitArticlePage>
+        <PopulatedNavBar></PopulatedNavBar>
       </body>
     </html>
   );
