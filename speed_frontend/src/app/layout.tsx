@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext"; // Adjust the import path as needed
+import Navbar from "@/components/Navbar";
 
 export default function RootLayout({
   children,
@@ -13,8 +14,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
-          <AuthPage></AuthPage>
+      <AuthProvider>
+          <Navbar />
           {children}
         </AuthProvider>
       </body>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import BrowsePage from "@/app/pages/browse/page";
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
@@ -35,7 +36,7 @@ function AuthPage() {
         login();
         // Redirect to the home page or another page
         router.push("/home");
-      } else {
+            } else {
         console.error("Login Failed", data.message);
         setError(data.message || "Failed to log in.");
       }
