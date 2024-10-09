@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
@@ -10,6 +11,7 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
+  const { login } = useAuth();
   const router = useRouter();
 
   const handleLogin = async (event: { preventDefault: () => void }) => {
@@ -30,6 +32,7 @@ function AuthPage() {
         // Store the access token in localStorage
         localStorage.setItem("access_token", data.access_token);
         // Update the login state in AuthContext
+        login();
         // Redirect to the home page or another page
         router.push("/home");
       } else {
