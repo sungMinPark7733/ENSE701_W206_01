@@ -35,7 +35,7 @@ function AuthPage() {
         // Update the login state in AuthContext
         login();
         // Redirect to the home page or another page
-        router.push("/home");
+        router.push("../page");
             } else {
         console.error("Login Failed", data.message);
         setError(data.message || "Failed to log in.");

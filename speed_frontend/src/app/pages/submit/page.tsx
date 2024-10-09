@@ -101,20 +101,20 @@ const SubmitArticlePage = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col items-center pt-5"> {/* Added padding-top to avoid overlap with navbar */}
+    <div className="min-h-screen flex flex-col items-center pt-5">
       <form
         onSubmit={onSubmit}
-        className="bg-white p-6 rounded shadow-lg w-full max-w-4xl mx-auto" // Ensured it doesn't extend off the screen
+        className="submission-form" // Moved to CSS
       >
-        <h1 className="text-xl font-bold mb-4">Article Submission</h1>
-
+        <h1 className="form-title">Article Submission</h1>
+  
         {successMessage && (
-          <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">
+          <div className="success-message">
             {successMessage}
           </div>
         )}
-
-        <label htmlFor="title" className="block mb-2">
+  
+        <label htmlFor="title" className="form-label">
           Title:
         </label>
         <input
@@ -124,25 +124,25 @@ const SubmitArticlePage = () => {
           value={article.title}
           onChange={onChange}
           required
-          className="mb-4 p-2 w-full bg-gray-100"
+          className="input-field"
         />
-
+  
         <div>
-          <label className="block mb-2">Author(s):</label>
+          <label className="form-label">Author(s):</label>
           {article.authors.map((author, index) => (
-            <div key={index} className="flex items-center mb-2">
+            <div key={index} className="author-entry">
               <input
                 type="text"
                 value={author}
                 onChange={(e) => handleAuthorChange(index, e.target.value)}
                 required
-                className="p-2 w-full bg-gray-100"
+                className="input-field"
               />
               {article.authors.length > 1 && (
                 <button
                   type="button"
                   onClick={() => handleRemoveAuthor(index)}
-                  className="ml-2 bg-red-500 hover:bg-red-700 text-white p-2 rounded"
+                  className="remove-author-button"
                 >
                   Remove
                 </button>
@@ -152,12 +152,13 @@ const SubmitArticlePage = () => {
           <button
             type="button"
             onClick={handleAddAuthor}
-            className="mt-2 mb-4 bg-green-500 hover:bg-green-700 text-white p-2 rounded"
+            className="add-author-button"
           >
             Add Author
           </button>
         </div>
-        <label htmlFor="source" className="block mb-2">
+  
+        <label htmlFor="source" className="form-label">
           Source:
         </label>
         <input
@@ -167,10 +168,10 @@ const SubmitArticlePage = () => {
           value={article.source}
           onChange={onChange}
           required
-          className="mb-4 p-2 w-full bg-gray-100"
+          className="input-field"
         />
-
-        <label htmlFor="publicationYear" className="block mb-2">
+  
+        <label htmlFor="publicationYear" className="form-label">
           Publication Year:
         </label>
         <input
@@ -180,10 +181,10 @@ const SubmitArticlePage = () => {
           value={article.publicationYear}
           onChange={onChange}
           required
-          className="mb-4 p-2 w-full bg-gray-100"
+          className="input-field"
         />
-
-        <label htmlFor="doi" className="block mb-2">
+  
+        <label htmlFor="doi" className="form-label">
           DOI:
         </label>
         <input
@@ -193,10 +194,10 @@ const SubmitArticlePage = () => {
           value={article.doi}
           onChange={onChange}
           required
-          className="mb-4 p-2 w-full bg-gray-100"
+          className="input-field"
         />
-
-        <label htmlFor="rating" className="block mb-2">
+  
+        <label htmlFor="rating" className="form-label">
           Rating:
         </label>
         <select
@@ -205,7 +206,7 @@ const SubmitArticlePage = () => {
           value={currentRating ?? '0'}
           onChange={onChange}
           required
-          className="mb-4 p-2 w-full bg-gray-100"
+          className="input-field"
         >
           <option value="0" disabled>
             Select a rating
@@ -216,10 +217,10 @@ const SubmitArticlePage = () => {
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-
+  
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className="submit-button"
         >
           Submit Article
         </button>

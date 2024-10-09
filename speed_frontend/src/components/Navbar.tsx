@@ -15,43 +15,54 @@ const Navbar = () => {
   };
 
   return (
-    <div className="pt-5">
-      <div className="navbar bg-blue-100 shadow-xl w-[97%] m-auto rounded-md">
-        <div className="flex-1 text-3xl">
-          <a className="btn btn-ghost text-3xl">SPEED</a>
+    <div className="navbar-wrapper">
+      <div className="navbar-container">
+        <div className="navbar-logo">
+          <a className="title-large">SPEED</a>
         </div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal px-1 text-3xl font-bold">
-            <li>
-              <Link href="/dashboard">Dashboard</Link>
-            </li>
+        <div className="navbar-links">
+          <ul className="menu-horizontal title-large font-bold">
             <li>
               <details>
                 <summary>Menu</summary>
-                <ul className="bg-blue-200 rounded-t-none p-2 text-lg">
+                <ul className="dropdown-menu">
                   {!isLoggedIn ? (
                     <li>
-                      <Link className="hover:bg-blue-300" href="/pages/login">Login</Link>
+                      <Link className="hover-highlight" href="/pages/login">
+                        Login
+                      </Link>
                     </li>
                   ) : (
                     <>
                       <li>
-                    <Link className="hover:bg-blue-300" href="/pages/browse">Browse</Link>
+                        <Link className="hover-highlight" href="/pages/browse">
+                          Browse
+                        </Link>
                       </li>
                       <li>
-                        <Link className="hover:bg-blue-300" href="/pages/submit">Submit</Link>
+                        <Link className="hover-highlight" href="/pages/submit">
+                          Submit
+                        </Link>
                       </li>
                       <li>
-                        <Link className="hover:bg-blue-300" href="/pages/moderate">Moderate</Link>
+                        <Link className="hover-highlight" href="/pages/moderate">
+                          Moderate
+                        </Link>
                       </li>
                       <li>
-                        <Link className="hover:bg-blue-300" href="/pages/analyse">Analyse</Link>
+                        <Link className="hover-highlight" href="/pages/analyse">
+                          Analyse
+                        </Link>
                       </li>
                       <li>
-                        <Link className="hover:bg-blue-300" href="/pages/admin">Admin</Link>
+                        <Link className="hover-highlight" href="/pages/admin">
+                          Admin
+                        </Link>
                       </li>
                       <li>
-                        <button className="hover:bg-blue-300" onClick={handleLogout}>Logout</button>
+                        <button className="hover-highlight" onClick={handleLogout}>
+                          Logout
+                        </button>
                       </li>
                     </>
                   )}
