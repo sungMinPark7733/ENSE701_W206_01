@@ -8,6 +8,7 @@ import {
     Param,
     Post,
     Put,
+    Patch
   } from '@nestjs/common';
   import { BookService } from './book.service';
   import { CreateBookDto } from './create-book.dto';
@@ -111,4 +112,29 @@ import {
         );
       }
     }
+
+  // Approve an article
+  @Patch(':id/approve')
+  async approveArticle(@Param('id') id: string){
+    const article = await this.bookService.approveArticle(id);
+    if(!article){
+      throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    }
+    return article;
   }
+
+  // Reject an article 
+  @Patch(':id/reject')
+  async rejectArticle(@Param('id') id: string) {
+    const article = await this.bookService.rejectArticle(id);
+    if(!article) {
+      throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    }
+    return article;
+  }
+
+  @Delete(':id')
+  async rejectBook(@Param('id') id: string) {
+  return this.bookService.delete(id);
+  }
+}

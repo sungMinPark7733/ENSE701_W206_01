@@ -3,27 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --background: #f3f3f3;
+  --foreground: #171717;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
@@ -32,70 +19,42 @@ body {
   }
 }
 
-.collapse.show {
-  visibility: visible;
+/* Navbar styling */
+.navbar {
+  background-color: #333;  /* Dark background color */
+  padding: 1rem;           /* Padding around the navbar */
+  display: flex;           /* Flexbox for alignment */
+  justify-content: center; /* Center the navbar links */
 }
 
-.CreateBook {
-  background-color: #2c3e50;
-  min-height: 100vh;
-  color: white;
+/* Unordered list to style the links */
+.navbar-links {
+  list-style: none;        /* Remove bullets */
+  display: flex;           /* Horizontal layout for links */
+  gap: 1rem;               /* Space between links */
+  margin: 0;               /* Reset default margin */
+  padding: 0;              /* Reset default padding */
 }
 
-.ShowBookDetails {
-  background-color: #2c3e50;
-  min-height: 100vh;
-  color: white;
+/* Styling each list item */
+.navbar-links li {
+  display: inline;         /* Keep links inline */
+  color: white;            /* White text color */
+  text-decoration: none;   /* Remove underline */
+  padding: 0.5rem 1rem;    /* Padding inside each link */
+  border-radius: 5px;      /* Slight rounding of corners */
+  transition: background-color 0.3s ease;  /* Smooth hover effect */
 }
 
-.UpdateBookInfo {
-  background-color: #2c3e50;
-  min-height: 100vh;
-  color: white;
+/* Hover effect for links */
+.navbar-links li:hover {
+  background-color: #555;  /* Change background color on hover */
+  color: white;            /* Keep text white on hover */
+  text-decoration: none;   /* Ensure underline doesn't appear */
 }
 
-.ShowBookList {
-  background-color: #2c3e50;
-  height: 100%;
-  width: 100%;
-  min-height: 100vh;
-  min-width: 100px;
-  color: white;
-}
-
-/* BookList Styles */
-.list {
-  display: grid;
-  margin: 20px 0 50px 0;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 1fr;
-  grid-gap: 2em;
-}
-
-.card-container {
-  width: 250px;
-  border: 1px solid rgba(0,0,.125);
-  margin: 0 auto;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.desc {
-  height: 130px;
-  padding: 10px;
-}
-
-.desc h2 {
-  font-size: 1em;
-  font-weight: 400;
-}
-
-.desc h3, p {
-  font-weight: 300;
-}
-
-.desc h3 {
-  color: #6c757d;
-  font-size: 1em;
-  padding: 10px 0 10px 0;
+/* Active link styling (optional) */
+.navbar-links li.active {
+  background-color: #0070f3;  /* Blue background for active link */
+  color: white;               /* White text color for active link */
 }

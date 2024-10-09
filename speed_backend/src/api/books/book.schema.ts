@@ -25,6 +25,12 @@ export class Book {
 
   @Prop({ type: Date, default: Date.now })
   updated_date: Date;
+
+  @Prop()
+  url: string;
+
+  @Prop( { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending'})
+  status: string; // tracks whether the article is pending, approved, or rejected
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
