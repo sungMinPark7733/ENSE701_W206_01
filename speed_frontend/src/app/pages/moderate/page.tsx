@@ -16,30 +16,58 @@ interface Article {
   status: string;
 }
 
-const BrowsePage = () => {
+const ModeratorBrowsePage = () => {
   // Use the custom hook to ensure only authenticated users can access this page
 
   const [articles, setArticles] = useState<Article[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchArticles = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/status/unmoderated`);
+
+      const data = await response.json();
+
+      if (Array.isArray(data)) {
+        setArticles(data);
+      } else {
+        console.error("Unexpected API response:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/status/unmoderated`);
+    // Fetch all articles if no search term is provided, otherwise perform a search
+    if (searchTerm === '') {
+      fetchArticles();
+    } else {
+      const delayDebounceFn = setTimeout(() => {
+        searchArticles(searchTerm);
+      }, 300);
 
-        const data = await response.json();
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [searchTerm]);
 
-        if (Array.isArray(data)) {
-          setArticles(data);
-        } else {
-          console.error("Unexpected API response:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    };
+  const searchArticles = async (title: string) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`http://localhost:8082/articles/search?title=${title}`);
+      const data = await response.json();
+      setArticles(data);
+    } catch (error) {
+      console.error('Error searching articles:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchArticles();
-  }, []);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <div className="min-h-screen mt-16">
@@ -47,9 +75,20 @@ const BrowsePage = () => {
         <span className="font-bold text-xl flex-shrink-0 whitespace-nowrap">
           Browse unmoderated articles
         </span>
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="block w-full md:w-2/3 lg:w-1/2 xl:w-3/4 rounded-full border border-solid border-neutral-300 bg-white px-6 py-3 text-base font-normal leading-6 text-neutral-700 outline-none shadow-md transition duration-200 ease-in-out focus:z-[3] focus:border-blue-500 focus:ring focus:ring-blue-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200 dark:placeholder:text-neutral-400 dark:focus:border-blue-500"
+          placeholder="Search for an article by title..."
+          aria-label="Search"
+        />
       </div>
 
       <div className="mt-16">
+        {isLoading ? (
+            <div className="text-center">Loading articles...</div>
+        ) : (
         <div className="px-4 md:px-8">
           <table className="min-w-full table-auto border border-blue-300">
             <thead>
@@ -106,15 +145,17 @@ const BrowsePage = () => {
                 <tr>
                   <td colSpan={9} className="text-center">
                     No articles found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default BrowsePage;
+export default ModeratorBrowsePage;
+
