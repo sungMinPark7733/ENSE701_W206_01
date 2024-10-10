@@ -24,9 +24,8 @@ const BrowsePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8082/articles/status/unmoderated"
-        );
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/status/unmoderated`);
+
         const data = await response.json();
 
         if (Array.isArray(data)) {

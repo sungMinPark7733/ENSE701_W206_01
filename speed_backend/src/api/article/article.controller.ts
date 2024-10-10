@@ -57,7 +57,7 @@ export class ArticlesController {
 
   @Get('status/unmoderated')
   async findUnmoderatedArticles(): Promise<Article[]> {
-    return this.articlesService.findByStatus('Unmoderated');
+    return this.articlesService.findByStatus('Unmoderateds');
   }
 
   @Patch(':id/rate')
