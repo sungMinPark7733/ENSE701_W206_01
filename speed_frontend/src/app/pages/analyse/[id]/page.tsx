@@ -74,7 +74,7 @@ const AnalyzePage = () => {
     setLoadingSubmit(true);
     try {
       const response = await fetch(
-        `http://localhost:8082/articles/${displayedArticle!._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/articles/${displayedArticle!._id}`,
         {
           method: "PUT",
           headers: {
