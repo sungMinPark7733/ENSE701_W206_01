@@ -42,7 +42,7 @@ const PopulatedNavBar = () => {
             <NavItem onClick={() => setCurrentPage("browse")}>View articles</NavItem>
             <NavItem onClick={() => setCurrentPage("admin")}>Admin</NavItem>
             <NavItem onClick={() => setCurrentPage("analyse")}>Analyzer</NavItem>
-            <NavItem onClick={() => setCurrentPage("moderate")}>Modertaor</NavItem>
+            <NavItem onClick={() => setCurrentPage("moderate")}>Moderator</NavItem>
           </NavDropdown>
         </NavItem>
       </NavBar>
