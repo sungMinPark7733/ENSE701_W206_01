@@ -26,7 +26,7 @@ const ArticleDetailsPage = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`http://localhost:8082/articles/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/${id}`);
         const data = await response.json();
         setArticle(data);
       } catch (error) {
