@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import BrowsePage from "@/app/pages/browse/page";
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
