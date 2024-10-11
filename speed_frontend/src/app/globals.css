@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #f3f3f3;
-  --foreground: #171717;
+  --background: #ffe5b4; /* Light orange background */
+  --foreground: #171717; /* Dark text */
+  --primary-color: #ff8c00; /* Bright orange for accents */
+  --secondary-color: #ffffff; /* White for text */
 }
 
 body {
@@ -19,42 +21,134 @@ body {
   }
 }
 
-/* Navbar styling */
-.navbar {
-  background-color: #333;  /* Dark background color */
-  padding: 1rem;           /* Padding around the navbar */
-  display: flex;           /* Flexbox for alignment */
-  justify-content: center; /* Center the navbar links */
+/* Navbar.tsx styling*/
+.navbar-wrapper {
+  background-color: var(--primary-color); /* Orange background */
+  padding: 1rem; /* Padding around the navbar */
+  border-bottom: 4px solid var(--secondary-color); /* Adds contrast */
 }
 
-/* Unordered list to style the links */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 97%;
+  margin: auto;
+}
+
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--secondary-color); /* White text */
+}
+
 .navbar-links {
-  list-style: none;        /* Remove bullets */
-  display: flex;           /* Horizontal layout for links */
-  gap: 1rem;               /* Space between links */
-  margin: 0;               /* Reset default margin */
-  padding: 0;              /* Reset default padding */
+  display: flex;
+  align-items: center;
 }
 
-/* Styling each list item */
-.navbar-links li {
-  display: inline;         /* Keep links inline */
-  color: white;            /* White text color */
-  text-decoration: none;   /* Remove underline */
-  padding: 0.5rem 1rem;    /* Padding inside each link */
-  border-radius: 5px;      /* Slight rounding of corners */
-  transition: background-color 0.3s ease;  /* Smooth hover effect */
+.dropdown-menu {
+  background-color: #f7b048; /* Lighter shade of orange */
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
 }
 
-/* Hover effect for links */
-.navbar-links li:hover {
-  background-color: #555;  /* Change background color on hover */
-  color: white;            /* Keep text white on hover */
-  text-decoration: none;   /* Ensure underline doesn't appear */
+.menu-horizontal li {
+  display: inline;
+  margin-left: 1rem;
 }
 
-/* Active link styling (optional) */
-.navbar-links li.active {
-  background-color: #0070f3;  /* Blue background for active link */
-  color: white;               /* White text color for active link */
+.menu-horizontal a {
+  color: var(--secondary-color); /* White text */
+  text-decoration: none;
+}
+
+.menu-horizontal a:hover {
+  color: #ff8c00; /* Highlight color on hover */
+}
+
+.hover-highlight {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.hover-highlight:hover {
+  color: #ff8c00; /* Orange on hover */
+}
+
+/* submit page styling*/
+.submission-form {
+  background-color: var(--secondary-color); /* white */
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.5rem; /* rounded */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  width: 100%;
+  max-width: 64rem; /* max-w-4xl */
+  margin: auto; /* mx-auto */
+}
+
+.form-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: bold;
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.success-message {
+  margin-bottom: 1rem; /* mb-4 */
+  padding: 1rem; /* p-4 */
+  color: #2f855a; /* text-green-700 */
+  background-color: #f0fff4; /* bg-green-100 */
+  border-radius: 0.5rem; /* rounded */
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.input-field {
+  margin-bottom: 1rem; /* mb-4 */
+  padding: 0.5rem; /* p-2 */
+  width: 100%; /* w-full */
+  background-color: #f7fafc; /* bg-gray-100 */
+}
+
+.author-entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.remove-author-button {
+  margin-left: 0.5rem; /* ml-2 */
+  background-color: #f56565; /* bg-red-500 */
+  color: white;
+  padding: 0.5rem; /* p-2 */
+  border-radius: 0.25rem; /* rounded */
+}
+
+.remove-author-button:hover {
+  background-color: #c53030; /* hover:bg-red-700 */
+}
+
+.add-author-button {
+  margin-top: 0.5rem;  /* mt-2 */
+  margin-bottom: 1rem; /* mb-4 */
+  background-color: #ff8c00; /* bg-green-500 */
+  color: white; /* text-white */
+  padding: 0.5rem; /* p-2 */
+  border-radius: 0.25rem; /* rounded */
+}
+
+.add-author-button:hover {
+  background-color: #e67f0b; /* hover:bg-green-700 */
+}
+
+.submit-button {
+  width: 100%; /* w-full */
+  background-color: #ff8c00; /* bg-blue-500 */
+  color: white; /* text-white */
+  padding: 0.5rem; /* p-2 */
+  border-radius: 0.25rem; /* rounded */
 }

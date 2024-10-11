@@ -1,6 +1,8 @@
 
+
 import "./globals.css";
-import PopulatedNavBar from "@/components/PopulatedNavBar";
+import { AuthProvider } from "@/context/AuthContext"; // Adjust the import path as needed
+import Navbar from "@/components/Navbar";
 
 export default function RootLayout({
   children,
@@ -10,7 +12,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <PopulatedNavBar></PopulatedNavBar>
+      <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
