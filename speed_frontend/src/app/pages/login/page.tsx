@@ -132,7 +132,7 @@ function AuthPage() {
         />
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         <button
-          className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded mt-4"
+          className="w-full bg-[#ff8c00] hover:bg-[#ff8c00] text-white p-3 rounded mt-4"
           type="submit"
         >
           {isLogin ? "Login" : "Sign Up"}
