@@ -40,11 +40,6 @@ const Navbar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link className="hover-highlight" href="/pages/search">
-                          Search
-                        </Link>
-                      </li>
-                      <li>
                         <Link className="hover-highlight" href="/pages/submit">
                           Submit
                         </Link>
@@ -64,7 +59,6 @@ const Navbar = () => {
                           Admin
                         </Link>
                       </li>
-
                       <li>
                         <button className="hover-highlight" onClick={handleLogout}>
                           Logout
