@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
+  background-color: #ffe5b4;
   min-height: 100vh;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .search-page .search-button {
-  background-color: #007bff;
+  background-color: #ff8c00;
   color: white;
   border: none;
   padding: 15px 25px;
@@ -75,13 +75,18 @@
   font-size: 1rem;
 }
 
+/* Search Page Table Style */
 .search-page table th {
-  background-color: #007bff;
+  background-color: #ff8c00; /* Dark Orange for Header */
   color: white;
 }
 
+.search-page table td {
+  background-color: #ffe5b4; /* Light Orange for Rows */
+}
+
 .search-page table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f9d89a; /* Slightly darker Light Orange for Even Rows */
 }
 
 
