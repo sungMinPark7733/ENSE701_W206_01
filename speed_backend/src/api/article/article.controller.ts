@@ -28,8 +28,16 @@ export class ArticlesController {
   }
 
   @Get('search')
-  async searchByTitle(@Query('title') title: string): Promise<Article[]> {
-    return this.articlesService.searchByTitle(title);
+  async searchArticles(
+    @Query('title') title: string,
+    @Query('sePractice') sePractice: string,
+    @Query('publicationYear') publicationYear: string,
+  ): Promise<Article[]> {
+    return this.articlesService.searchArticles(
+      title,
+      sePractice,
+      publicationYear,
+    );
   }
 
   @Get(':id')
@@ -57,7 +65,7 @@ export class ArticlesController {
 
   @Get('status/unmoderated')
   async findUnmoderatedArticles(): Promise<Article[]> {
-    return this.articlesService.findByStatus('Unmoderateds');
+    return this.articlesService.findByStatus('Unmoderated');
   }
 
   @Patch(':id/rate')
@@ -79,5 +87,10 @@ export class ArticlesController {
   @Get('status/moderated')
   async findArticlesArticles(): Promise<Article[]> {
     return this.articlesService.findByStatus('Moderated');
+  }
+
+  @Get('count/:status')
+  async count(@Param('status') selected_status: string): Promise<number> {
+    return this.articlesService.count(selected_status);
   }
 }

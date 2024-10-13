@@ -152,3 +152,8 @@ body {
   padding: 0.5rem; /* p-2 */
   border-radius: 0.25rem; /* rounded */
 }
+
+th{
+  background-color: #ff8c00; /* Dark Orange for Header */
+  color: white;
+}

@@ -1,0 +1,178 @@
+/* src/app/pages/admin/admin.css */
+
+.admin-page .admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffe5b4;
+}
+
+/* Search part */
+.admin-page .search-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-page .search-section h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.admin-page .search-input {
+  width: 60%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.admin-page .search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Table Style */
+.admin-page .table-section {
+  margin-top: 20px;
+}
+
+.admin-page .article-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.admin-page .article-table th,
+.admin-page .article-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Admin Page Table Style */
+.admin-page .article-table th {
+  background-color: #ff8c00; /* Dark Orange for Header */
+  color: white;
+  padding: 14px;
+}
+
+.admin-page .article-table td {
+  background-color: #ffe5b4; /* Light Orange for Rows */
+}
+
+.admin-page .article-table tr:nth-child(even) {
+  background-color: #f9d89a; /* Slightly darker Light Orange for Even Rows */
+}
+
+.admin-page .article-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.admin-page .article-link:hover {
+  text-decoration: underline;
+}
+
+/* Action Button */
+.admin-page .edit-button,
+.admin-page .delete-button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.admin-page .edit-button {
+  background-color: #ffc107;
+  color: white;
+  margin-right: 10px;
+}
+
+.admin-page .edit-button:hover {
+  background-color: #e0a800;
+}
+
+.admin-page .delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.admin-page .delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Edit section */
+.admin-page .edit-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-page .edit-input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.admin-page .edit-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+  outline: none;
+}
+
+.admin-page .save-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.admin-page .save-button:hover {
+  background-color: #218838;
+}
+
+/* Success Message */
+.admin-page .success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+}
+
+/* Loading and no data states */
+.admin-page .loading-message,
+.admin-page .no-articles {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+
+@media (max-width: 768px) {
+  .admin-page .search-input {
+    width: 100%;
+  }
+
+  .admin-page .article-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admin-page .edit-input {
+    width: 100%;
+  }
+}

@@ -55,14 +55,35 @@ export class ArticlesService {
     return deletedArticle;
   }
 
-  async searchByTitle(title: string): Promise<Article[]> {
-    const query = { title: { $regex: title, $options: 'i' } };
+  async searchArticles(
+    title: string,
+    sePractice: string,
+    publicationYear: string,
+  ): Promise<Article[]> {
+    const query: any = {};
+
+    if (title) {
+      query.title = { $regex: title, $options: 'i' };
+    }
+
+    if (sePractice) {
+      query.sePractice = { $regex: sePractice, $options: 'i' };
+    }
+
+    if (publicationYear) {
+      query.publicationYear = { $regex: publicationYear, $options: 'i' };
+    }
 
     return this.articleModel.find(query).exec();
   }
 
   async findByStatus(statusToSearch: string): Promise<Article[]> {
     return this.articleModel.find({ status: statusToSearch }).exec();
+  }
+
+  async count(selectedStatus: string): Promise<number> {
+    const filter = { status: { $eq: selectedStatus } };
+    return this.articleModel.countDocuments(filter).exec();
   }
 
   async updateArticle(id: string, updateDto: any): Promise<Article> {
