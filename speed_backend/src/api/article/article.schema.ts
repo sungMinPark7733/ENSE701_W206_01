@@ -29,7 +29,8 @@ export class Article {
   @Prop({ default: [] })
   evidence: string[];
 
-  @Prop({ required: true, default: [] })
+  // Change to allow ratings to be optional and to manage default values
+  @Prop({ type: [Number], default: [] })
   rating: number[];
 
   @Prop({ required: true })
@@ -39,10 +40,10 @@ export class Article {
   sePractice: string;
 
   @Prop({ required: true })
-  evidenceResult: string; 
+  evidenceResult: string;
 
   @Prop({ required: true })
-  researchType: string; 
+  researchType: string;
 
   @Prop({ required: true })
   participantType: string;
