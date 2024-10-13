@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRequireAuth } from "../../../hooks/useRequireAuth";
 
 interface Article {
   _id: string;
@@ -12,60 +13,41 @@ interface Article {
   doi: string;
   claim: string;
   evidence: string;
-  rating: number;
+  rating: number[];
   status: string;
 }
 
-const ModeratorBrowsePage = () => {
+const BrowsePage = () => {
   // Use the custom hook to ensure only authenticated users can access this page
+  useRequireAuth();
 
   const [articles, setArticles] = useState<Article[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const fetchArticles = async () => {
-    try {
-      const response = await fetch('http://localhost:8082/articles');
-      const data = await response.json();
-
-      if (Array.isArray(data)) {
-        setArticles(data);
-      } else {
-        console.error("Unexpected API response:", data);
-      }
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-    }
-  };
 
   useEffect(() => {
-    // Fetch all articles if no search term is provided, otherwise perform a search
-    if (searchTerm === '') {
-      fetchArticles();
-    } else {
-      const delayDebounceFn = setTimeout(() => {
-        searchArticles(searchTerm);
-      }, 300);
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8082/articles/status/unmoderated"
+        );
+        const data = await response.json();
 
-      return () => clearTimeout(delayDebounceFn);
-    }
-  }, [searchTerm]);
+        if (Array.isArray(data)) {
+          setArticles(data);
+        } else {
+          console.error("Unexpected API response:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    };
 
-  const searchArticles = async (title: string) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`http://localhost:8082/articles/search?title=${title}`);
-      const data = await response.json();
-      setArticles(data);
-    } catch (error) {
-      console.error('Error searching articles:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    fetchArticles();
+  }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+  const calculateAverageRating = (ratings: number[]) => {
+    if (ratings.length === 0) return 'No ratings';
+    const average = ratings.reduce((acc, curr) => acc + curr, 0) / ratings.length;
+    return average.toFixed(1); // Rounds to one decimal place
   };
 
   return (
@@ -74,20 +56,9 @@ const ModeratorBrowsePage = () => {
         <span className="font-bold text-xl flex-shrink-0 whitespace-nowrap">
           Browse unmoderated articles
         </span>
-        <input
-          type="search"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="block w-full md:w-2/3 lg:w-1/2 xl:w-3/4 rounded-full border border-solid border-neutral-300 bg-white px-6 py-3 text-base font-normal leading-6 text-neutral-700 outline-none shadow-md transition duration-200 ease-in-out focus:z-[3] focus:border-blue-500 focus:ring focus:ring-blue-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200 dark:placeholder:text-neutral-400 dark:focus:border-blue-500"
-          placeholder="Search for an article by title..."
-          aria-label="Search"
-        />
       </div>
 
       <div className="mt-16">
-        {isLoading ? (
-            <div className="text-center">Loading articles...</div>
-        ) : (
         <div className="px-4 md:px-8">
           <table className="min-w-full table-auto border border-blue-300">
             <thead>
@@ -109,6 +80,11 @@ const ModeratorBrowsePage = () => {
             </thead>
             <tbody>
               {/* Render the article rows based on search results */}
+
+       
+   
+
+      
               {articles.length > 0 ? (
                 articles.map((article) => (
                   <tr key={article._id}>
@@ -129,12 +105,13 @@ const ModeratorBrowsePage = () => {
                     </td>
                     <td className="border px-4 py-2">{article.doi}</td>
                     <td className="border px-4 py-2">
-                      {article.claim || "N/A"}
+                    { article.claim.length > 0 ? article.claim : "N/A" }
                     </td>
                     <td className="border px-4 py-2">
-                      {article.evidence || "N/A"}
+                    { article.evidence.length > 0 ? article.evidence : "N/A" }
                     </td>
-                    <td className="border px-4 py-2">{article.rating}/5</td>
+                    
+                    <td className="border px-4 py-2">{calculateAverageRating(article.rating)}/5</td>
                     <td className="border px-4 py-2">
                       {article.status || "N/A"}
                     </td>
@@ -144,17 +121,15 @@ const ModeratorBrowsePage = () => {
                 <tr>
                   <td colSpan={9} className="text-center">
                     No articles found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ModeratorBrowsePage;
-
+export default BrowsePage;
