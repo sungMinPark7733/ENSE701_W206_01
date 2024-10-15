@@ -1,6 +1,7 @@
 "use client"; // Mark this component as a client component
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useRequireAuth } from "../../../hooks/useRequireAuth";
 
 interface Article {
   title: string;
@@ -9,6 +10,11 @@ interface Article {
   publicationYear: string;
   doi: string;
   rating: number[];
+  journalConferenceName: string;
+  sePractice: string;
+  evidenceResult: string;
+  researchType: string;
+  participantType: string;
 }
 
 const DefaultEmptyArticle: Article = {
@@ -18,9 +24,16 @@ const DefaultEmptyArticle: Article = {
   publicationYear: "",
   doi: "",
   rating: [],
+  journalConferenceName: "",
+  sePractice: "",
+  evidenceResult: "",
+  researchType: "",
+  participantType: "",
 };
 
+
 const SubmitArticlePage = () => {
+  useRequireAuth();
 
   const [article, setArticle] = useState<Article>(DefaultEmptyArticle);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -79,7 +92,7 @@ const SubmitArticlePage = () => {
     };
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`, {
+      const response = await fetch("http://localhost:8082/articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,20 +114,20 @@ const SubmitArticlePage = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col items-center pt-5">
+    <div className="min-h-screen flex flex-col items-center pt-5"> {/* Added padding-top to avoid overlap with navbar */}
       <form
         onSubmit={onSubmit}
-        className="submission-form" // Moved to CSS
+        className="bg-white p-6 rounded shadow-lg w-full max-w-4xl mx-auto" // Ensured it doesn't extend off the screen
       >
-        <h1 className="form-title">Article Submission</h1>
-  
+        <h1 className="text-xl font-bold mb-4">Article Submission</h1>
+
         {successMessage && (
-          <div className="success-message">
+          <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">
             {successMessage}
           </div>
         )}
-  
-        <label htmlFor="title" className="form-label">
+
+        <label htmlFor="title" className="block mb-2">
           Title:
         </label>
         <input
@@ -124,25 +137,25 @@ const SubmitArticlePage = () => {
           value={article.title}
           onChange={onChange}
           required
-          className="input-field"
+          className="mb-4 p-2 w-full bg-gray-100"
         />
-  
+
         <div>
-          <label className="form-label">Author(s):</label>
+          <label className="block mb-2">Author(s):</label>
           {article.authors.map((author, index) => (
-            <div key={index} className="author-entry">
+            <div key={index} className="flex items-center mb-2">
               <input
                 type="text"
                 value={author}
                 onChange={(e) => handleAuthorChange(index, e.target.value)}
                 required
-                className="input-field"
+                className="p-2 w-full bg-gray-100"
               />
               {article.authors.length > 1 && (
                 <button
                   type="button"
                   onClick={() => handleRemoveAuthor(index)}
-                  className="remove-author-button"
+                  className="ml-2 bg-red-500 hover:bg-red-700 text-white p-2 rounded"
                 >
                   Remove
                 </button>
@@ -152,13 +165,12 @@ const SubmitArticlePage = () => {
           <button
             type="button"
             onClick={handleAddAuthor}
-            className="add-author-button"
+            className="mt-2 mb-4 bg-green-500 hover:bg-green-700 text-white p-2 rounded"
           >
             Add Author
           </button>
         </div>
-  
-        <label htmlFor="source" className="form-label">
+        <label htmlFor="source" className="block mb-2">
           Source:
         </label>
         <input
@@ -168,10 +180,10 @@ const SubmitArticlePage = () => {
           value={article.source}
           onChange={onChange}
           required
-          className="input-field"
+          className="mb-4 p-2 w-full bg-gray-100"
         />
-  
-        <label htmlFor="publicationYear" className="form-label">
+
+        <label htmlFor="publicationYear" className="block mb-2">
           Publication Year:
         </label>
         <input
@@ -181,10 +193,10 @@ const SubmitArticlePage = () => {
           value={article.publicationYear}
           onChange={onChange}
           required
-          className="input-field"
+          className="mb-4 p-2 w-full bg-gray-100"
         />
-  
-        <label htmlFor="doi" className="form-label">
+
+        <label htmlFor="doi" className="block mb-2">
           DOI:
         </label>
         <input
@@ -194,10 +206,10 @@ const SubmitArticlePage = () => {
           value={article.doi}
           onChange={onChange}
           required
-          className="input-field"
+          className="mb-4 p-2 w-full bg-gray-100"
         />
-  
-        <label htmlFor="rating" className="form-label">
+
+        <label htmlFor="rating" className="block mb-2">
           Rating:
         </label>
         <select
@@ -206,7 +218,7 @@ const SubmitArticlePage = () => {
           value={currentRating ?? '0'}
           onChange={onChange}
           required
-          className="input-field"
+          className="mb-4 p-2 w-full bg-gray-100"
         >
           <option value="0" disabled>
             Select a rating
@@ -217,10 +229,77 @@ const SubmitArticlePage = () => {
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-  
+
+
+
+        <label htmlFor="journalConferenceName" className="block mb-2">
+  Journal/Conference Name:
+</label>
+<input
+  type="text"
+  id="journalConferenceName"
+  name="journalConferenceName"
+  value={article.journalConferenceName}
+  onChange={onChange}
+  required
+  className="mb-4 p-2 w-full bg-gray-100"
+/>
+
+<label htmlFor="sePractice" className="block mb-2">
+  SE Practice:
+</label>
+<input
+  type="text"
+  id="sePractice"
+  name="sePractice"
+  value={article.sePractice}
+  onChange={onChange}
+  required
+  className="mb-4 p-2 w-full bg-gray-100"
+/>
+
+<label htmlFor="evidenceResult" className="block mb-2">
+  Evidence Result:
+</label>
+<input
+  type="text"
+  id="evidenceResult"
+  name="evidenceResult"
+  value={article.evidenceResult}
+  onChange={onChange}
+  required
+  className="mb-4 p-2 w-full bg-gray-100"
+/>
+
+<label htmlFor="researchType" className="block mb-2">
+  Research Type:
+</label>
+<input
+  type="text"
+  id="researchType"
+  name="researchType"
+  value={article.researchType}
+  onChange={onChange}
+  required
+  className="mb-4 p-2 w-full bg-gray-100"
+/>
+
+<label htmlFor="participantType" className="block mb-2">
+  Participant Type:
+</label>
+<input
+  type="text"
+  id="participantType"
+  name="participantType"
+  value={article.participantType}
+  onChange={onChange}
+  required
+  className="mb-4 p-2 w-full bg-gray-100"
+/>
+
         <button
           type="submit"
-          className="submit-button"
+          className="w-full bg-blue-500 text-white p-2 rounded"
         >
           Submit Article
         </button>
