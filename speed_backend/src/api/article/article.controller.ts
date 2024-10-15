@@ -45,6 +45,7 @@ export class ArticlesController {
     return this.articlesService.findOne(id);
   }
 
+  // Combined create and update functionality using CreateArticleDto
   @Post()
   async create(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
     return this.articlesService.create(createArticleDto);
@@ -53,9 +54,9 @@ export class ArticlesController {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() createArticleDto: CreateArticleDto,
+    @Body() updateArticleDto: CreateArticleDto, // Still using CreateArticleDto for updates
   ): Promise<Article> {
-    return this.articlesService.update(id, createArticleDto);
+    return this.articlesService.update(id, updateArticleDto);
   }
 
   @Delete(':id')
@@ -77,15 +78,15 @@ export class ArticlesController {
   }
 
   @Patch(':id')
-  updateArticle(
+  async updateArticle(
     @Param('id') id: string,
-    @Body() updateDto: any,
+    @Body() updateDto: Partial<CreateArticleDto>, // Allowing partial updates
   ): Promise<Article> {
     return this.articlesService.updateArticle(id, updateDto);
   }
 
   @Get('status/moderated')
-  async findArticlesArticles(): Promise<Article[]> {
+  async findModeratedArticles(): Promise<Article[]> {
     return this.articlesService.findByStatus('Moderated');
   }
 

@@ -43,15 +43,28 @@ export class ArticlesService {
 
   async update(
     id: string,
-    createArticleDto: CreateArticleDto,
+    updateDto: Partial<CreateArticleDto>, // Allow partial updates
   ): Promise<Article> {
-    return await this.articleModel
-      .findByIdAndUpdate(id, createArticleDto, { new: true })
+    const updatedArticle = await this.articleModel
+      .findByIdAndUpdate(
+        id,
+        { $set: updateDto }, // Only update fields that are provided
+        { new: true, runValidators: true }, // Return the updated document and run validators
+      )
       .exec();
+
+    if (!updatedArticle) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return updatedArticle;
   }
 
   async delete(id: string): Promise<Article> {
     const deletedArticle = await this.articleModel.findByIdAndDelete(id).exec();
+    if (!deletedArticle) {
+      throw new NotFoundException('Article not found');
+    }
     return deletedArticle;
   }
 
@@ -86,9 +99,22 @@ export class ArticlesService {
     return this.articleModel.countDocuments(filter).exec();
   }
 
-  async updateArticle(id: string, updateDto: any): Promise<Article> {
-    return this.articleModel
-      .findByIdAndUpdate(id, updateDto, { new: true })
+  async updateArticle(
+    id: string,
+    updateDto: Partial<CreateArticleDto>,
+  ): Promise<Article> {
+    const updatedArticle = await this.articleModel
+      .findByIdAndUpdate(
+        id,
+        { $set: updateDto }, // Update only provided fields
+        { new: true, runValidators: true }, // Return updated document
+      )
       .exec();
+
+    if (!updatedArticle) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return updatedArticle;
   }
 }
