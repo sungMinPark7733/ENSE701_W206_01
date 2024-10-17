@@ -41,13 +41,68 @@ export class ArticlesService {
     return article;
   }
 
+  // async verifyArticle(id: string): Promise<Article> {
+  //   const article = await this.articleModel.findById(id);
+  //   if (!article) {
+  //     throw new NotFoundException('Article not found');
+  //   }
+  //   article.status = 'Moderated'; // Update the status to 'Moderated'
+  //   await article.save();
+  //   return article;
+  // }
+
+  // async verifyArticle(id: string): Promise<Article> {
+  //   console.log(`Looking for article with id: ${id}`); // Log the article ID
+  //   const article = await this.articleModel.findById(id);
+  
+  //   if (!article) {
+  //     console.error('Article with id ${id} not found'); // Log the case where the article is not found
+  //     throw new NotFoundException('Article not found');
+  //   }
+  
+  //   console.log(`Article found: ${article}`); // Log the found article
+  
+  //   article.status = 'Moderated'; // Update the status to 'Moderated'
+  
+  //   try {
+  //     await article.save(); // Try to save the article
+  //     console.log(`Article status updated to 'Moderated'`); // Log success after saving
+  //   } catch (error) {
+  //     console.error('Error saving article:', error); // Log the error
+  //     throw new Error('Failed to save the article'); // Throw a more specific error
+  //   }
+  
+  //   return article;
+  // }
+
   async verifyArticle(id: string): Promise<Article> {
+    console.log(`Looking for article with id: ${id}`);
     const article = await this.articleModel.findById(id);
+  
     if (!article) {
+      console.error(`Article with id ${id} not found`);
       throw new NotFoundException('Article not found');
     }
-    article.status = 'Moderated'; // Update the status to 'Moderated'
-    await article.save();
+  
+    console.log(`Article found: ${article}`);
+  
+    // Add default values if required fields are missing
+    article.journalConferenceName = article.journalConferenceName || 'Unknown Conference';
+    article.sePractice = article.sePractice || 'General Practice';
+    article.evidenceResult = article.evidenceResult || 'No Evidence';
+    article.researchType = article.researchType || 'Unknown Research';
+    article.participantType = article.participantType || 'Unknown Participant';
+  
+    article.status = 'Moderated'; // Update the status to "Moderated"
+  
+    try {
+      await article.save();
+      console.log(`Article status updated to 'Moderated'`);
+    } catch (error) {
+      console.error('Error saving article:', error);
+      throw new Error('Failed to save the article');
+    }
+  
     return article;
   }
 
