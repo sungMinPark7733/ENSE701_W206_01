@@ -90,6 +90,8 @@ const BrowsePage = () => {
     return `${average}/5`;
   };
 
+  
+
   return (
     <div className="min-h-screen mt-16">
       <div className="flex justify-center items-center space-x-4 xl:w-3/4 mx-auto">
