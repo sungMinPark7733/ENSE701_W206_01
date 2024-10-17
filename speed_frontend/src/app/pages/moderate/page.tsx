@@ -57,6 +57,43 @@ const BrowsePage = () => {
     return average.toFixed(1);
   };
 
+  // const updateArticleStatus = async (
+  //   articleId: string,
+  //   action: "verify" | "deny"
+  // ) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8082/articles/${articleId}/${action}`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     // Check if the response is ok
+  //     if (!response.ok) {
+  //       const errorData = await response.json(); // Get error details from response
+  //       throw new Error(errorData.message || `Failed to ${action} article.`);
+  //     }
+
+  //     // If successful, remove the article from the list
+  //     setArticles((prevArticles) =>
+  //       prevArticles.filter((article) => article._id !== articleId)
+  //     );
+  //   } catch (error) {
+  //     console.error(`Error ${action} article:`, error);
+
+  //     // Type guard to ensure 'error' is an instance of Error
+  //     if (error instanceof Error) {
+  //       setError(`Error ${action} article: ${error.message}`);
+  //     } else {
+  //       setError(`An unknown error occurred during ${action}.`);
+  //     }
+  //   }
+  // };
+
   const updateArticleStatus = async (
     articleId: string,
     action: "verify" | "deny"
@@ -71,21 +108,19 @@ const BrowsePage = () => {
           },
         }
       );
-
-      // Check if the response is ok
+  
       if (!response.ok) {
         const errorData = await response.json(); // Get error details from response
         throw new Error(errorData.message || `Failed to ${action} article.`);
       }
-
-      // If successful, remove the article from the list
+  
+      // If successful, remove the article from the list for both actions
       setArticles((prevArticles) =>
         prevArticles.filter((article) => article._id !== articleId)
       );
     } catch (error) {
       console.error(`Error ${action} article:`, error);
-
-      // Type guard to ensure 'error' is an instance of Error
+  
       if (error instanceof Error) {
         setError(`Error ${action} article: ${error.message}`);
       } else {

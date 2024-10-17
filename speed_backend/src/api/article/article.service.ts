@@ -41,6 +41,16 @@ export class ArticlesService {
     return article;
   }
 
+  async verifyArticle(id: string): Promise<Article> {
+    const article = await this.articleModel.findById(id);
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+    article.status = 'Moderated'; // Update the status to 'Moderated'
+    await article.save();
+    return article;
+  }
+
   async update(
     id: string,
     updateDto: Partial<CreateArticleDto>, // Allow partial updates
