@@ -34,21 +34,6 @@ export class Article {
   @Prop({ type: [Number], default: [] })
   rating: number[];
 
-  // @Prop({ required: true })
-  // journalConferenceName: string;
-
-  // @Prop({ required: true })
-  // sePractice: string;
-
-  // @Prop({ required: true })
-  // evidenceResult: string;
-
-  // @Prop({ required: true })
-  // researchType: string;
-
-  // @Prop({ required: true })
-  // participantType: string;
-
   @Prop({ required: false }) // Make this optional
   journalConferenceName?: string;
 

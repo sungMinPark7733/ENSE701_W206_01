@@ -75,7 +75,7 @@ export class ArticlesService {
   //   return article;
   // }
 
-  async verifyArticle(id: string): Promise<Article> {
+  async approveArticle(id: string): Promise<Article> {
     console.log(`Looking for article with id: ${id}`);
     const article = await this.articleModel.findById(id);
   

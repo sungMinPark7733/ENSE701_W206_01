@@ -42,13 +42,13 @@ export class ArticlesController {
     );
   }
   
-  @Put(':id/verify')
-  async verifyArticle(@Param('id') id: string): Promise<Article> {
+  @Put(':id/approve')
+  async approveArticle(@Param('id') id: string): Promise<Article> {
     try {
-      return await this.articlesService.verifyArticle(id);
+      return await this.articlesService.approveArticle(id);
     } catch (error) {
       throw new HttpException(
-        'Error verifying article',
+        'Error approving article',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
