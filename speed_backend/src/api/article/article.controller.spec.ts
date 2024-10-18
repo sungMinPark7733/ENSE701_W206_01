@@ -86,7 +86,7 @@ describe('ArticlesController', () => {
     jest.spyOn(service, 'findByStatus').mockResolvedValue(result);
 
     expect(await controller.findUnmoderatedArticles()).toBe(result);
-    expect(service.findByStatus).toHaveBeenCalledWith('Unmoderateds');
+    expect(service.findByStatus).toHaveBeenCalledWith('Unmoderated');
   });
 
   it('should return test message', () => {
