@@ -18,7 +18,7 @@ function AuthPage() {
     event.preventDefault();
 
     try {
-      const response = await fetch(`https://ense-701-w206-01-backend.vercel.app/auth/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
