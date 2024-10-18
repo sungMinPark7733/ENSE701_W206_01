@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({ 
-    origin: true, 
+    origin: 'https://speed-gold.vercel.app', // Update with your frontend's URL
     credentials: true 
   });
 
