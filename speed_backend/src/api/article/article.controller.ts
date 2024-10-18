@@ -8,6 +8,8 @@ import {
   Put,
   Delete,
   Patch,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ArticlesService } from './article.service';
 import { CreateArticleDto } from './submit-article.dto';
@@ -39,6 +41,31 @@ export class ArticlesController {
       publicationYear,
     );
   }
+  
+  @Put(':id/approve')
+  async approveArticle(@Param('id') id: string): Promise<Article> {
+    try {
+      return await this.articlesService.approveArticle(id);
+    } catch (error) {
+      throw new HttpException(
+        'Error approving article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Put(':id/deny')
+  async denyArticle(@Param('id') id: string): Promise<void> {
+    try {
+      await this.articlesService.delete(id); // Use the existing delete method
+    } catch (error) {
+      throw new HttpException(
+        'Error denying article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Article> {

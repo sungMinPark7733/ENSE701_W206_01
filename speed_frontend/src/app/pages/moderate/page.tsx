@@ -62,30 +62,29 @@ const BrowsePage = () => {
     action: "verify" | "deny"
   ) => {
     try {
-      const response = await fetch(
-        `http://localhost:8082/articles/${articleId}/${action}`,
-        {
+      let response;
+  
+      if (action === "verify") {
+        response = await fetch(`http://localhost:8082/articles/${articleId}/verify`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-        }
-      );
-
-      // Check if the response is ok
-      if (!response.ok) {
-        const errorData = await response.json(); // Get error details from response
-        throw new Error(errorData.message || `Failed to ${action} article.`);
+        });
+      } else if (action === "deny") {
+        response = await fetch(`http://localhost:8082/articles/${articleId}`, {
+          method: "DELETE",
+        });
       }
-
+  
+  
       // If successful, remove the article from the list
       setArticles((prevArticles) =>
         prevArticles.filter((article) => article._id !== articleId)
       );
     } catch (error) {
       console.error(`Error ${action} article:`, error);
-
-      // Type guard to ensure 'error' is an instance of Error
+  
       if (error instanceof Error) {
         setError(`Error ${action} article: ${error.message}`);
       } else {
@@ -179,7 +178,7 @@ const BrowsePage = () => {
                             updateArticleStatus(article._id, "verify")
                           }
                         >
-                          Verify
+                          Approve
                         </button>
                         <button
                           className="bg-red-500 text-white px-4 py-2 rounded"
@@ -187,7 +186,7 @@ const BrowsePage = () => {
                             updateArticleStatus(article._id, "deny")
                           }
                         >
-                          Deny
+                          Reject
                         </button>
                       </td>
                     </tr>
