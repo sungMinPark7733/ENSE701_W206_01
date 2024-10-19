@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import "./analyse.css";
 
 interface Article {
   _id: string;
@@ -18,6 +18,9 @@ interface Article {
 
 const BrowseAnalyze = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [editArticleId, setEditArticleId] = useState<string | null>(null);
+  const [editedArticle, setEditedArticle] = useState<Article | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -26,12 +29,7 @@ const BrowseAnalyze = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/articles/status/moderated`
         );
         const data = await response.json();
-
-        if (Array.isArray(data)) {
-          setArticles(data);
-        } else {
-          console.error("Unexpected API response:", data);
-        }
+        setArticles(data);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
@@ -40,87 +38,186 @@ const BrowseAnalyze = () => {
     fetchArticles();
   }, []);
 
-  return (
-    <div className="min-h-screen mt-16">
-      <div className="flex justify-center items-center space-x-4 xl:w-3/4 mx-auto">
-        <span className="font-bold text-xl flex-shrink-0 whitespace-nowrap">
-          Browse moderated articles
-        </span>
-      </div>
+  const handleEdit = (article: Article) => {
+    setEditArticleId(article._id);
+    setEditedArticle(article); // Set the current article for editing
+  };
 
-      <div className="mt-16">
-        <div className="px-4 md:px-8">
-          <table className="min-w-full table-auto border border-blue-300">
+  const handleSaveEdit = async () => {
+    if (editedArticle) {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/articles/${editedArticle._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editedArticle),
+          }
+        );
+        if (response.ok) {
+          setEditArticleId(null); // Exit Edit Mode
+          setSuccessMessage("Article updated successfully!");
+          setTimeout(() => setSuccessMessage(null), 3000); // Clear success message after 3 seconds
+          // Fetch updated articles
+          const fetchUpdatedArticles = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/articles/status/moderated`
+          );
+          const updatedData = await fetchUpdatedArticles.json();
+          setArticles(updatedData);
+        } else {
+          console.error("Failed to update article");
+        }
+      } catch (error) {
+        console.error("Error updating article:", error);
+      }
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    if (editedArticle) {
+      setEditedArticle({
+        ...editedArticle,
+        [name]: value,
+      });
+    }
+  };
+
+  return (
+    <div className="analyse-page">
+      <div className="analyse-container">
+        <div className="search-section">
+          <h1>Browse Moderated Articles</h1>
+        </div>
+
+        <div className="table-section">
+          <table className="article-table">
             <thead>
-              <tr className="bg-gray-100">
-                <th className="border px-4 py-2 text-left font-bold">Title</th>
-                <th className="border px-4 py-2 text-left font-bold">
-                  Authors
-                </th>
-                <th className="border px-4 py-2 text-left font-bold">Source</th>
-                <th className="border px-4 py-2 text-left font-bold">Year</th>
-                <th className="border px-4 py-2 text-left font-bold">DOI</th>
-                <th className="border px-4 py-2 text-left font-bold">Claim</th>
-                <th className="border px-4 py-2 text-left font-bold">
-                  Evidence
-                </th>
-                <th className="border px-4 py-2 text-left font-bold">
-                  Average Rating
-                </th>
-                <th className="border px-4 py-2 text-left font-bold">Status</th>
+              <tr>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>Source</th>
+                <th>Year</th>
+                <th>DOI</th>
+                <th>Claim</th>
+                <th>Evidence</th>
+                <th>Average Rating</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {/* Render the article rows based on search results */}
               {articles.length > 0 ? (
-                articles.map((article) => {
-                  const averageRating =
-                    article.rating.length > 0
-                      ? (
-                          article.rating.reduce((acc, curr) => acc + curr, 0) /
-                          article.rating.length
-                        ).toFixed(1)
-                      : "No ratings";
-                  return (
-                    <tr key={article._id}>
-                      <td className="border px-4 py-2">
-                        <Link
-                          href={`/pages/analyse/${article._id}`}
-                          className="text-blue-600 hover:underline"
+                articles.map((article) => (
+                  <React.Fragment key={article._id}>
+                    <tr>
+                      <td>{article.title}</td>
+                      <td>{article.authors.join(", ")}</td>
+                      <td>{article.source}</td>
+                      <td>{article.publicationYear}</td>
+                      <td>{article.doi}</td>
+                      <td>{article.claim || "N/A"}</td>
+                      <td>{article.evidence || "N/A"}</td>
+                      <td>
+                        {article.rating.length > 0
+                          ? (
+                              article.rating.reduce(
+                                (acc, curr) => acc + curr,
+                                0
+                              ) / article.rating.length
+                            ).toFixed(1)
+                          : "No ratings"}
+                      </td>
+                      <td>{article.status}</td>
+                      <td>
+                        <button
+                          className="edit-button"
+                          onClick={() => handleEdit(article)}
                         >
-                          {article.title}
-                        </Link>
-                      </td>
-                      <td className="border px-4 py-2">
-                        {article.authors.join(", ")}
-                      </td>
-                      <td className="border px-4 py-2">{article.source}</td>
-                      <td className="border px-4 py-2">
-                        {article.publicationYear}
-                      </td>
-                      <td className="border px-4 py-2">{article.doi}</td>
-                      <td className="border px-4 py-2">
-                        {article.claim || "N/A"}
-                      </td>
-                      <td className="border px-4 py-2">
-                        {article.evidence || "N/A"}
-                      </td>
-                      <td className="border px-4 py-2">{averageRating}/5</td>
-                      <td className="border px-4 py-2">
-                        {article.status || "N/A"}
+                          Edit
+                        </button>
                       </td>
                     </tr>
-                  );
-                })
+
+                    {editArticleId === article._id && editedArticle && (
+                      <tr>
+                        <td colSpan={10}>
+                          <div className="edit-section">
+                            <h2>Edit Article</h2>
+                            <input
+                              type="text"
+                              name="title"
+                              value={editedArticle.title}
+                              onChange={handleInputChange}
+                              placeholder="Title"
+                              className="edit-input"
+                            />
+                            <input
+                              type="text"
+                              name="authors"
+                              value={editedArticle.authors.join(", ")}
+                              onChange={(e) =>
+                                setEditedArticle({
+                                  ...editedArticle,
+                                  authors: e.target.value.split(", "),
+                                })
+                              }
+                              placeholder="Authors (comma separated)"
+                              className="edit-input"
+                            />
+                            <input
+                              type="text"
+                              name="source"
+                              value={editedArticle.source}
+                              onChange={handleInputChange}
+                              placeholder="Source"
+                              className="edit-input"
+                            />
+                            <input
+                              type="text"
+                              name="publicationYear"
+                              value={editedArticle.publicationYear}
+                              onChange={handleInputChange}
+                              placeholder="Year"
+                              className="edit-input"
+                            />
+                            <input
+                              type="text"
+                              name="doi"
+                              value={editedArticle.doi}
+                              onChange={handleInputChange}
+                              placeholder="DOI"
+                              className="edit-input"
+                            />
+                            <button
+                              className="save-button"
+                              onClick={handleSaveEdit}
+                            >
+                              Save Changes
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                ))
               ) : (
                 <tr>
-                  <td colSpan={9} className="text-center">
+                  <td colSpan={10} className="text-center">
                     No articles found.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
         </div>
       </div>
     </div>
