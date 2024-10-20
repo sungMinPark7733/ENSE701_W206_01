@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRequireAuth } from "../../../hooks/useRequireAuth";
 
 interface Article {
   _id: string;
@@ -18,7 +17,6 @@ interface Article {
 }
 
 const BrowsePage = () => {
-  useRequireAuth();
 
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

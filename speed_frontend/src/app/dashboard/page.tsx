@@ -2,11 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 
-import { useAuth } from "../../context/AuthContext";
 
 const Dashboard = () => {
 
-  const { isLoggedIn } = useAuth();
 
   const [awaitingModeration, setAwaitingModeration] = useState<number | null>(null);
   const [awaitingAnalysis, setAwaitingAnalysis] = useState<number | null>(null);
@@ -61,9 +59,7 @@ const Dashboard = () => {
     )
   }
 
-  if (!isLoggedIn) {
-    return <div>Not logged in?</div>;
-  }
+
 
   // When logged in (as admin?), show all notifications
 
