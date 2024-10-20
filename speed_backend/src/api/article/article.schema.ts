@@ -22,7 +22,6 @@ export class Article {
 
   @Prop({ default: 'Unmoderated' })
   status: string;
-  
 
   @Prop({ type: [String], default: [] })
   claim: string[];

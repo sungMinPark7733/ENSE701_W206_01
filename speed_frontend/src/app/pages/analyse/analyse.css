@@ -1,0 +1,178 @@
+/* src/app/pages/analyse/analyse.css */
+
+.analyse-page .analyse-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffe5b4; /* Same background color as the admin page */
+  }
+  
+  /* Search part */
+  .analyse-page .search-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .analyse-page .search-section h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .analyse-page .search-input {
+    width: 60%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .analyse-page .search-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Table Style */
+  .analyse-page .table-section {
+    margin-top: 20px;
+  }
+  
+  .analyse-page .article-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .analyse-page .article-table th,
+  .analyse-page .article-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  /* Analyse Page Table Style */
+  .analyse-page .article-table th {
+    background-color: #ff8c00; /* Dark Orange for Header */
+    color: white;
+    padding: 14px;
+  }
+  
+  .analyse-page .article-table td {
+    background-color: #ffe5b4; /* Light Orange for Rows */
+  }
+  
+  .analyse-page .article-table tr:nth-child(even) {
+    background-color: #f9d89a; /* Slightly darker Light Orange for Even Rows */
+  }
+  
+  .analyse-page .article-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .analyse-page .article-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Action Button */
+  .analyse-page .edit-button,
+  .analyse-page .delete-button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .analyse-page .edit-button {
+    background-color: #ffc107;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .analyse-page .edit-button:hover {
+    background-color: #e0a800;
+  }
+  
+  .analyse-page .delete-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .analyse-page .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Edit section */
+  .analyse-page .edit-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .analyse-page .edit-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .analyse-page .edit-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+    outline: none;
+  }
+  
+  .analyse-page .save-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .analyse-page .save-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Success Message */
+  .analyse-page .success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Loading and no data states */
+  .analyse-page .loading-message,
+  .analyse-page .no-articles {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #666;
+  }
+  
+  @media (max-width: 768px) {
+    .analyse-page .search-input {
+      width: 100%;
+    }
+  
+    .analyse-page .article-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .analyse-page .edit-input {
+      width: 100%;
+    }
+  }
+  
