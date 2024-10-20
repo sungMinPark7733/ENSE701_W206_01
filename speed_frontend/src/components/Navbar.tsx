@@ -2,17 +2,9 @@
 
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { isLoggedIn, logout } = useAuth();
-  const router = useRouter();
 
-  const handleLogout = () => {
-    logout();
-    router.push("/pages/login");
-  };
 
   return (
     <div className="navbar-wrapper">
@@ -26,13 +18,6 @@ const Navbar = () => {
               <details>
                 <summary>Menu</summary>
                 <ul className="dropdown-menu">
-                  {!isLoggedIn ? (
-                    <li>
-                      <Link className="hover-highlight" href="/pages/login">
-                        Login
-                      </Link>
-                    </li>
-                  ) : (
                     <>
                       <li>
                         <Link className="hover-highlight" href="/pages/browse">
@@ -64,14 +49,7 @@ const Navbar = () => {
                           Admin
                         </Link>
                       </li>
-
-                      <li>
-                        <button className="hover-highlight" onClick={handleLogout}>
-                          Logout
-                        </button>
-                      </li>
                     </>
-                  )}
                 </ul>
               </details>
             </li>
