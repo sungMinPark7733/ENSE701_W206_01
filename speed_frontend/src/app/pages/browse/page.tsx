@@ -17,7 +17,7 @@ interface Article {
 const Page: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const [error] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
