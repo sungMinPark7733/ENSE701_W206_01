@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const router = useRouter();
 
 
   return (
@@ -51,7 +49,6 @@ const Navbar = () => {
                           Admin
                         </Link>
                       </li>
-
                     </>
                 </ul>
               </details>
