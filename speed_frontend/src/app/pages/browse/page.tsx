@@ -1,6 +1,8 @@
+"use client";
+
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { dummyData } from '@/utils/dummydata.json'; // Import dummy data
 import Link from 'next/link'; // Ensure Link is correctly imported
 
 interface Article {
