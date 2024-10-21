@@ -37,7 +37,7 @@ const SearchPage = () => {
   const fetchArticles = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8082/articles');
+      const response = await fetch('https://ense-701-w206-01-wqfo.vercel.app/articles');
       const data = await response.json();
       setArticles(data);
     } catch (error) {
@@ -50,7 +50,7 @@ const SearchPage = () => {
   const searchArticles = async (title: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/search?title=${title}`);
+      const response = await fetch(`https://ense-701-w206-01-wqfo.vercel.app/articles/search?title=${title}`);
       const data = await response.json();
       setArticles(data);
     } catch (error) {

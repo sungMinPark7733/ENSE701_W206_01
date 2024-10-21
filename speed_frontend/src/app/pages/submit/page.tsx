@@ -54,12 +54,6 @@ const SubmitArticlePage = () => {
     const newAuthors = article.authors.filter((_, i) => i !== index);
     setArticle({ ...article, authors: newAuthors });
   };
-
-  // const onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-  //   const { name, value } = event.target;
-  //   setArticle({ ...article, [name]: value });
-  // };
-
  
   const onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -90,7 +84,7 @@ const SubmitArticlePage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8082/articles", {
+      const response = await fetch("https://ense-701-w206-01-wqfo.vercel.app/articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

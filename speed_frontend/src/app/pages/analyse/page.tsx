@@ -47,7 +47,7 @@ const BrowseAnalyze = () => {
     if (editedArticle) {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/articles/${editedArticle._id}`,
+          `https://ense-701-w206-01-wqfo.vercel.app/articles/${editedArticle._id}`,
           {
             method: "PATCH",
             headers: {
@@ -62,7 +62,7 @@ const BrowseAnalyze = () => {
           setTimeout(() => setSuccessMessage(null), 3000); // Clear success message after 3 seconds
           // Fetch updated articles
           const fetchUpdatedArticles = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/articles/status/moderated`
+            `https://ense-701-w206-01-wqfo.vercel.app/articles/status/moderated`
           );
           const updatedData = await fetchUpdatedArticles.json();
           setArticles(updatedData);

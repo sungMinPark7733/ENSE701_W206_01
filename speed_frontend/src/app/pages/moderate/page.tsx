@@ -25,7 +25,7 @@ const ModeratorPage = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://localhost:8082/articles/status/unmoderated"
+          "https://ense-701-w206-01-wqfo.vercel.app/articles/status/unmoderated"
         );
         const data = await response.json();
 
