@@ -63,7 +63,7 @@ const BrowsePage = () => {
       query.append(type, term);
 
       const response = await fetch(
-        `http://localhost:8082/articles/search?${query.toString()}`
+        `https://ense-701-w206-01-wqfo.vercel.app/articles/search?${query.toString()}`
       );
       const data = await response.json();
       setArticles(data);

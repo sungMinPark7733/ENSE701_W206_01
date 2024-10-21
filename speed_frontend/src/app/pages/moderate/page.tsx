@@ -60,7 +60,7 @@ const ModeratorPage = () => {
     try {
       if (action === "verify") {
         const response = await fetch(
-          `http://localhost:8082/articles/${articleId}/verify`,
+          'https://ense-701-w206-01-wqfo.vercel.app/articles/${articleId}/verify',
           {
             method: "PUT",
             headers: {
@@ -73,7 +73,7 @@ const ModeratorPage = () => {
         }
       } else if (action === "deny") {
         const response = await fetch(
-          `http://localhost:8082/articles/${articleId}`,
+          `https://ense-701-w206-01-wqfo.vercel.app/articles/${articleId}`,
           { method: "DELETE" }
         );
         if (!response.ok) {
